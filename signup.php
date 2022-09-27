@@ -1,5 +1,14 @@
 <?php
-include './admin/config/database.php'
+include './admin/config/database.php';
+
+$firstname = $_SESSION['signup-data']['firstname'] ?? null;
+$lastname = $_SESSION['signup-data']['lastname'] ?? null;
+$username = $_SESSION['signup-data']['username'] ?? null;
+$email = $_SESSION['signup-data']['email'] ?? null;
+$create_password = $_SESSION['signup-data']['create_password'] ?? null;
+$confirm_password = $_SESSION['signup-data']['confirm_password'] ?? null;
+
+unset($_SESSION['signup-data']);
 ?>
 
 <!DOCTYPE html>
@@ -20,19 +29,25 @@ include './admin/config/database.php'
     <section class="form__section">
         <div class="container form__section-container">
             <h2>Sign up</h2>
-            <div class="alert__message error">
-                <p>This is an error message</p>
-            </div>
+            <?php if(isset($_SESSION['signup'])): ?>
+                <div class="alert__message error">
+                    <p>
+                        <?= $_SESSION['signup'];
+                            unset($_SESSION['signup']);
+                        ?>
+                    </p>
+                </div>
+            <?php endif ?>
             <form action="<?= ROOT_URL ?>signup-logic.php" enctype="multipart/form-data" method="POST">
-                <input type="text" placeholder="First Name">
-                <input type="text" placeholder="Last Name">
-                <input type="text" placeholder="Username">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Create Password">
-                <input type="password" placeholder="Confirm Password">
+                <input type="text" placeholder="First Name" name="firstname" value="<?= $firstname ?>">
+                <input type="text" placeholder="Last Name" name="lastname" value="<?= $lastname ?>">
+                <input type="text" placeholder="Username" name="username" value="<?= $username ?>">
+                <input type="email" placeholder="Email" name="email" value="<?= $email ?>">
+                <input type="password" placeholder="Create Password" name="create_password" value="<?= $create_password ?>">
+                <input type="password" placeholder="Confirm Password" name="confirm_password" value="<?= $confirm_password ?>">
                 <div class="form__control">
                     <label for="avatar">User avatar</label>
-                    <input type="file" id="avatar">
+                    <input type="file" id="avatar" name="avatar">
                 </div>
                 <button class="btn" type="submit" name="signup">Sign up</button>
                 <small>Already have an account? <a href="signin.php">Sign In</a></small>
