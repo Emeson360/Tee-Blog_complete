@@ -27,12 +27,42 @@ if (isset($_POST['signup'])) {
     elseif (strlen($create_password) < 4 || strlen($confirm_password) < 4) {
         $_SESSION['signup'] = "Password should be 4+ characters";
     }
-    elseif (empty($avatar)) {
+    elseif (empty($avatar['name'])) {
         $_SESSION['signup'] = "Please add an avatar";
     }
     else {
         if($create_password !== $confirm_password) {
             $_SESSION['signup'] = "Password do not match";
+        }
+        else {
+            $hashed_password = password_hash($create_password, PASSWORD_DEFAULT);  
+            
+
+            // work on the avatar
+            // rename avatar
+            $time = time(); //Make each image name unique using current timestamp
+            $avatar_name = $time . $avatar['name'];
+            $avatar_tmp_name = $avatar['tmp_name'];
+            $avatar_destination_path = 'images/' . $avatar_name;
+
+            // make sure file is allowed
+            $allowed_files = ['png', 'jpg', 'jpeg'];
+            $extension = explode('.', $avatar_name);
+            $extension = end($extension);
+
+            if (in_array($extension, $allowed_files)) {
+                // Make sure image is not more than 2mb
+                if ($avatar['size'] < 2000000) {
+                    // Upload avatar
+                    move_uploaded_file($avatar_tmp_name, $avatar_destination_path);
+                }
+                else {
+                    $_SESSION['reg'] = "File size too big. Should be less than 2mb";
+                }
+            }
+            else {
+                $_SESSION['signup'] = "File should be png, jpg or jpeg";
+            }
         }
     }
 
@@ -44,7 +74,17 @@ if (isset($_POST['signup'])) {
         // Redirect to signup page
         header('location: ' . ROOT_URL . 'signup.php');
     }
-    // var_dump($avatar) . "<br>";
+    else {
+        // Insert into the database
+        $user_insert_query = "INSERT INTO users (firstname, lastname, username, email, password, avatar, is_admin) VALUE ('$firstname', '$lastname', '$username', '$email', '$hashed_password', '$avatar_name', 0)";
+
+        if (mysqli_query($con, $user_insert_query)) {
+            $_SESSION['signup-success'] = "Registration successfull, Please Log In!!!";
+            // redirect to login page
+            header('location: ' . ROOT_URL . 'signin.php');
+        }
+    }
+    
 }
 else {
     header('location: '. ROOT_URL . 'signup.php');
