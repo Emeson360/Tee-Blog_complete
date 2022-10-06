@@ -37,13 +37,22 @@ if (isset($_POST['signup'])) {
         else {
             $hashed_password = password_hash($create_password, PASSWORD_DEFAULT);  
             
+            // check if username already exist in database
+            $user_check_username_query = "SELECT username FROM users WHERE username = '$username'";
+            $user_check_username_result = mysqli_query($con, $user_check_username_query);
+            
+            if (mysqli_num_rows($user_check_username_result) > 0) {
+                
+                $_SESSION['signup'] = "Username already exist";
+            }
+            
             // check if email already exist in database
             $user_check_query = "SELECT email FROM users WHERE email = '$email'";
             $user_check_result = mysqli_query($con, $user_check_query);
             
             if (mysqli_num_rows($user_check_result) > 0) {
                 
-                $_SESSION['signup'] = "Email already exixt";
+                $_SESSION['signup'] = "Email already exist";
             }
             else {
 

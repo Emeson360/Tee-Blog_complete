@@ -30,11 +30,21 @@ include 'admin/config/database.php'
                     </p>
                 </div>
             <?php endif ?>
+            <?php if (isset($_SESSION['signin'])): ?>
+                <div class="alert__message error">
+                    <p>
+                        <?=
+                            $_SESSION['signin'];
+                            unset($_SESSION['signin']);
+                        ?>
+                    </p>
+                </div>
+            <?php endif ?>
 
-            <form action="">
-                <input type="text" placeholder="Username or Email">
-                <input type="password" placeholder="Password">
-                <button class="btn" type="submit">Sign In</button>
+            <form action="<?= ROOT_URL ?>signin-logic.php" method="POST">
+                <input type="text" placeholder="Username or Email" name="username_email">
+                <input type="password" placeholder="Password" name="password">
+                <button class="btn" type="submit" name="signin">Sign In</button>
                 <small>Don't have an account? <a href="<?= ROOT_URL?>signup.php">Sign Up</a></small>
             </form>
         </div>

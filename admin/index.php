@@ -8,6 +8,16 @@ include 'partials/header.php';
         <div class="container dashboard__container">
             <button id="show__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-right"></i></button>
             <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-left"></i></button>
+            <?php if (isset($_SESSION['signin-success'])): ?>
+                <div class="alert__message success">
+                    <p>
+                        <?=
+                            $_SESSION['signin-success'];
+                            unset($_SESSION['signin-success']);
+                        ?>
+                    </p>
+                </div>
+            <?php endif ?>
             <aside>
                 <ul>
                     <li>
