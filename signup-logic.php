@@ -37,32 +37,44 @@ if (isset($_POST['signup'])) {
         else {
             $hashed_password = password_hash($create_password, PASSWORD_DEFAULT);  
             
-
-            // work on the avatar
-            // rename avatar
-            $time = time(); //Make each image name unique using current timestamp
-            $avatar_name = $time . $avatar['name'];
-            $avatar_tmp_name = $avatar['tmp_name'];
-            $avatar_destination_path = 'images/' . $avatar_name;
-
-            // make sure file is allowed
-            $allowed_files = ['png', 'jpg', 'jpeg'];
-            $extension = explode('.', $avatar_name);
-            $extension = end($extension);
-
-            if (in_array($extension, $allowed_files)) {
-                // Make sure image is not more than 2mb
-                if ($avatar['size'] < 2000000) {
-                    // Upload avatar
-                    move_uploaded_file($avatar_tmp_name, $avatar_destination_path);
-                }
-                else {
-                    $_SESSION['reg'] = "File size too big. Should be less than 2mb";
-                }
+            // check if email already exist in database
+            $user_check_query = "SELECT email FROM users WHERE email = '$email'";
+            $user_check_result = mysqli_query($con, $user_check_query);
+            
+            if (mysqli_num_rows($user_check_result) > 0) {
+                
+                $_SESSION['signup'] = "Email already exixt";
             }
             else {
-                $_SESSION['signup'] = "File should be png, jpg or jpeg";
+
+                // work on the avatar
+                // rename avatar
+                $time = time(); //Make each image name unique using current timestamp
+                $avatar_name = $time . $avatar['name'];
+                $avatar_tmp_name = $avatar['tmp_name'];
+                $avatar_destination_path = 'images/' . $avatar_name;
+    
+                // make sure file is allowed
+                $allowed_files = ['png', 'jpg', 'jpeg'];
+                $extension = explode('.', $avatar_name);
+                $extension = end($extension);
+    
+                if (in_array($extension, $allowed_files)) {
+                    // Make sure image is not more than 2mb
+                    if ($avatar['size'] < 2000000) {
+                        // Upload avatar
+                        move_uploaded_file($avatar_tmp_name, $avatar_destination_path);
+                    }
+                    else {
+                        $_SESSION['reg'] = "File size too big. Should be less than 2mb";
+                    }
+                }
+                else {
+                    $_SESSION['signup'] = "File should be png, jpg or jpeg";
+                }
+                
             }
+
         }
     }
 
