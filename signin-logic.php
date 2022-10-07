@@ -20,6 +20,7 @@ if(isset($_POST['signin'])) {
             // fetch that user using fetch assoc method
             $user_record = mysqli_fetch_assoc($user_fetch_result);
             $db_password = $user_record['password'];
+            $_SESSION['user'] = $user_record;
 
             // compare password with db_password
             if(password_verify($password, $db_password)) {

@@ -1,5 +1,10 @@
 <?php
 include './config/database.php';
+
+// Redirect to login page if not logged in
+if (!isLoggedIn()) {
+	header('location: '. ROOT_URL . 'signin.php');
+}
 ?>
 
 
@@ -34,16 +39,23 @@ include './config/database.php';
                 <li>
                     <a href="<?php echo ROOT_URL?>contact.php">Contact</a>
                 </li>
-                <!-- <li>
-                    <a href="<?php echo ROOT_URL?>signin.php">Signin</a>
-                </li> -->
+
                 <li class="nav__profile">
                     <div class="avatar">
-                        <img src="./images/avatar.png">
+                        
+                        <?php if(isset($_SESSION['user'])): ?>
+                            <?php
+                            $avatar_name = $_SESSION['user']['avatar'];
+                            
+                            ?>
+
+                            <img src="<?= ROOT_URL ?>images/<?= $avatar_name ?>">
+                        <?php endif ?>
                     </div>
+                   
                     <ul>
                         <li><a href="<?php echo ROOT_URL?>admin/dashboard.php">Dashboard</a></li>
-                        <li><a href="<?php echo ROOT_URL?>logout.php">Logout</a></li>
+                        <li><a href="<?php echo ROOT_URL?>index.php?logout='1'">Logout</a></li>
                     </ul>
                 </li>
             </ul>

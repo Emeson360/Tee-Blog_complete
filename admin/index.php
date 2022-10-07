@@ -5,19 +5,20 @@ include 'partials/header.php';
 
 
     <section class="dashboard">
+        <?php if (isset($_SESSION['signin-success'])): ?>
+            <div class="container alert__message success">
+                <p style="font-size: 20px;">
+                    <?=
+                        $_SESSION['signin-success'];
+                        unset($_SESSION['signin-success']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
         <div class="container dashboard__container">
             <button id="show__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-right"></i></button>
             <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-left"></i></button>
-            <?php if (isset($_SESSION['signin-success'])): ?>
-                <div class="alert__message success">
-                    <p>
-                        <?=
-                            $_SESSION['signin-success'];
-                            unset($_SESSION['signin-success']);
-                        ?>
-                    </p>
-                </div>
-            <?php endif ?>
+            
             <aside>
                 <ul>
                     <li>
@@ -69,42 +70,42 @@ include 'partials/header.php';
                             <td>Wild Life</td>
                             <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
                             <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                            <td>Yes</td>
+                            
                         </tr>
                         <tr>
                             <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
                             <td>Wild Life</td>
                             <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
                             <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                            <td>Yes</td>
+                            
                         </tr>
                         <tr>
                             <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
                             <td>Wild Life</td>
                             <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
                             <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                            <td>Yes</td>
+                            
                         </tr>
                         <tr>
                             <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
                             <td>Wild Life</td>
                             <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
                             <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                            <td>Yes</td>
+                            
                         </tr>
                         <tr>
                             <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
                             <td>Wild Life</td>
                             <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
                             <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                            <td>Yes</td>
+                            
                         </tr>
                         <tr>
                             <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
                             <td>Wild Life</td>
                             <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
                             <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                            <td>Yes</td>
+                            
                         </tr>
                     
                     </tbody>
