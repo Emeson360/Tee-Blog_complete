@@ -34,18 +34,30 @@ require './admin/config/database.php';
                 <li>
                     <a href="<?php echo ROOT_URL?>contact.php">Contact</a>
                 </li>
-                <li>
-                    <a href="<?php echo ROOT_URL?>signin.php">Signin</a>
-                </li>
-                <li class="nav__profile">
-                    <!-- <div class="avatar">
-                        <img src="./images/avatar.png">
-                    </div>
-                    <ul>
-                        <li><a href="<?php echo ROOT_URL?>admin/dashboard.php">Dashboard</a></li>
-                        <li><a href="<?php echo ROOT_URL?>logout.php">Logout</a></li>
-                    </ul>
-                </li> -->
+                <?php if(isset($_SESSION['user'])): ?>
+                    <li class="nav__profile">
+                        <div class="avatar">
+                            
+                            <?php if(isset($_SESSION['user'])): ?>
+                                <?php
+                                $avatar_name = $_SESSION['user']['avatar'];
+                                
+                                ?>
+
+                                <img src="<?= ROOT_URL ?>images/<?= $avatar_name ?>">
+                            <?php endif ?>
+                        </div>
+                    
+                        <ul>
+                            <li><a href="<?php echo ROOT_URL?>admin/index.php">Dashboard</a></li>
+                            <li><a href="<?php echo ROOT_URL?>index.php?logout='1'">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php else :?>
+                    <li>
+                        <a href="<?php echo ROOT_URL?>signin.php">Signin</a>
+                    </li>
+                <?php endif ?>
             </ul>
             <button id="open__nav-btn"><i class="fa fa-bars"></i></button>
             <button id="close__nav-btn"><i class="fa fa-times"></i></button>

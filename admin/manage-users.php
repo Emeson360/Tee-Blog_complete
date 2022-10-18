@@ -5,6 +5,16 @@ include 'partials/header.php';
 
 <section class="dashboard">
     <div class="container dashboard__container">
+        <?php  if (isset($_SESSION['add-user-success'])): ?>
+            <div class="alert__message success">
+                <p style="font-size: 20px;">
+                <?=
+                        $_SESSION['add-user-success'];
+                        unset($_SESSION['add-user-success']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
         <button id="show__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-right"></i></button>
         <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-left"></i></button>
         <aside>

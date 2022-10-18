@@ -25,6 +25,7 @@ if(isset($_POST['signin'])) {
             // compare password with db_password
             if(password_verify($password, $db_password)) {
                 $_SESSION['user-id'] = $user_record['id'];
+                $_SESSION['user-role'] = $user_record['is_admin'];
                 $_SESSION['signin-success'] = "Welcome " . $user_record['username'];
                 header('location: ' . ROOT_URL . 'admin/index.php');
             }
