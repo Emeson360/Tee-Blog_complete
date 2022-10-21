@@ -28,7 +28,7 @@ unset($_SESSION['add-user-data']);
                 <input type="text" placeholder="First Name" name="firstname" value="<?= $firstname ?>">
                 <input type="text" placeholder="Last Name" name="lastname" value="<?= $lastname ?>">
                 <input type="text" placeholder="Username" name="username" value="<?= $username ?>">
-                <input type="email" placeholder="Email" name="email">
+                <input type="email" placeholder="Email" name="email" value="<?= $email ?>">
                 <input type="password" placeholder="Create Password" name="create_password" value="<?= $create_password ?>">
                 <input type="password" placeholder="Confirm Password" name="confirm_password" value="<?= $confirm_password ?>">
                 <select name="is_admin">

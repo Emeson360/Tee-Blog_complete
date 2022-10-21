@@ -1,20 +1,22 @@
 <?php
 include 'partials/header.php';
+
+
 ?>
 
 
 <section class="dashboard">
+    <?php  if (isset($_SESSION['add-user-success'])): ?>
+        <div class="container alert__message success">
+            <p style="font-size: 20px;">
+            <?=
+                    $_SESSION['add-user-success'];
+                    unset($_SESSION['add-user-success']);
+                ?>
+            </p>
+        </div>
+    <?php endif ?>
     <div class="container dashboard__container">
-        <?php  if (isset($_SESSION['add-user-success'])): ?>
-            <div class="alert__message success">
-                <p style="font-size: 20px;">
-                <?=
-                        $_SESSION['add-user-success'];
-                        unset($_SESSION['add-user-success']);
-                    ?>
-                </p>
-            </div>
-        <?php endif ?>
         <button id="show__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-right"></i></button>
         <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-left"></i></button>
         <aside>
@@ -64,27 +66,38 @@ include 'partials/header.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Daniel Okoro</td>
-                        <td>Dan</td>
-                        <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
-                        <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                        <td>Yes</td>
-                    </tr>
-                    <tr>
-                        <td>Jane Ashely</td>
-                        <td>Jane</td>
-                        <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
-                        <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                        <td>No</td>
-                    </tr>
-                    <tr>
-                        <td>John Deo</td>
-                        <td>Deo</td>
-                        <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
-                        <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                        <td>No</td>
-                    </tr>
+                    <?php
+                        $current_admin_id = $_SESSION['user']['id'];
+                        $query = "SELECT * FROM users WHERE NOT id = '$current_admin_id'";
+                        $result = mysqli_query($con, $query);
+
+                        if (mysqli_num_rows($result) > 0) {
+                            foreach ($result as $row) {
+                                $name = "{$row['firstname']} {$row['lastname']}";
+                                $username = $row['username'];
+                                $is_admin = $row['is_admin'];
+                                $id = $row['id'];
+                                if($is_admin == '1') {
+                                    $is_admin = "Yes";
+                                }
+                                elseif($is_admin == '0') {
+                                    $is_admin = "No";
+                                }
+                                ?>
+                             
+                                <tr>
+                                    <td><?= $name ?></td>
+                                    <td><?= $username ?></td>
+                                    <td><a href="./edit-user.php?id=<?= $id ?>" class="btn sm">Edit</a></td>
+                                    <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
+                                    <td><?= $is_admin ?></td>
+                                </tr>
+
+                               <?php
+                            }
+                        }
+                    ?>
+                   
                 </tbody>
             </table>
         </main>

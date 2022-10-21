@@ -12,9 +12,6 @@ if (isset($_POST['add_user'])) {
     $is_admin = filter_var($_POST['is_admin'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $avatar = $_FILES['avatar'];
 
-    // var_dump($is_admin);
-    // die;
-
    
     if (empty($firstname)) {
         $_SESSION['add-user'] = "Firstname required";
@@ -31,9 +28,9 @@ if (isset($_POST['add_user'])) {
     elseif (strlen($create_password) < 4 || strlen($confirm_password) < 4) {
         $_SESSION['add-user'] = "Password should be 4+ characters";
     }
-    // elseif (empty($is_admin)) {
-    //     $_SESSION['add-user'] = "Please Select user role";
-    // }
+    elseif ($is_admin != "0" && $is_admin != "1") {
+        $_SESSION['add-user'] = "Please Select user role";
+    }
     elseif (empty($avatar['name'])) {
         $_SESSION['add-user'] = "Please add an avatar";
     }
