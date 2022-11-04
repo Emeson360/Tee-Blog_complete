@@ -4,6 +4,16 @@ include 'partials/header.php';
 
 
     <section class="dashboard">
+        <?php  if (isset($_SESSION['add-category-success'])): ?>
+            <div class="container alert__message success">
+                <p style="font-size: 20px;">
+                <?=
+                        $_SESSION['add-category-success'];
+                        unset($_SESSION['add-category-success']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
         <div class="container dashboard__container">
             <button id="show__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-right"></i></button>
             <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-left"></i></button>
@@ -52,21 +62,33 @@ include 'partials/header.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Travel</td>
-                            <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>Wild Life</td>
-                            <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <td>Music</td>
-                            <td><a href="./edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
-                        </tr>
+                        <?php
+                            $query = "SELECT * FROM categories";
+                            $result = mysqli_query($con, $query);
+                            if(mysqli_num_rows($result) > 0) {
+                                foreach ($result as $row) {
+                                    $category_id = $row['id'];
+                                    $title = $row['title'];
+                                    ?>
+
+                                    <tr>
+                                        <td><?= $title ?></td>
+                                        <td><a href="<?= ROOT_URL ?>admin/edit-category.php?id=<?= $category_id ?>" class="btn sm">Edit</a></td>
+                                        <td><a href="<?= ROOT_URL ?>admin/delete-category.php" class="btn sm danger">Delete</a></td>
+                                    </tr>
+
+                                    <?php
+                                }
+                            }
+                            else {
+                                ?>
+                                    <tr>
+                                        <td>No record found</td>
+                                    </tr>
+                                <?php
+                            }
+                        ?>
+                        
                     </tbody>
                 </table>
             </main>

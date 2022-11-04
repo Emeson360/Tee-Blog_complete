@@ -1,7 +1,5 @@
 <?php
 include 'partials/header.php';
-
-
 ?>
 
 
@@ -12,6 +10,36 @@ include 'partials/header.php';
             <?=
                     $_SESSION['add-user-success'];
                     unset($_SESSION['add-user-success']);
+                ?>
+            </p>
+        </div>
+    <?php endif ?>
+    <?php  if (isset($_SESSION['edit-user-success'])): ?>
+        <div class="container alert__message success">
+            <p style="font-size: 20px;">
+            <?=
+                    $_SESSION['edit-user-success'];
+                    unset($_SESSION['edit-user-success']);
+                ?>
+            </p>
+        </div>
+    <?php endif ?>
+    <?php  if (isset($_SESSION['delete'])): ?>
+        <div class="container alert__message error">
+            <p style="font-size: 20px;">
+                <?=
+                    $_SESSION['delete'];
+                    unset($_SESSION['delete']);
+                ?>
+            </p>
+        </div>
+    <?php endif ?>
+    <?php  if (isset($_SESSION['delete-success'])): ?>
+        <div class="container alert__message success">
+            <p style="font-size: 20px;">
+            <?=
+                    $_SESSION['delete-success'];
+                    unset($_SESSION['delete-success']);
                 ?>
             </p>
         </div>
@@ -27,7 +55,7 @@ include 'partials/header.php';
                     </a>
                 </li>
                 <li>
-                    <a href="./dashboard.php"><i class="fa fa-vcard"></i>
+                    <a href="./index.php"><i class="fa fa-vcard"></i>
                         <h5>Manage posts</h5>
                     </a>
                 </li>
@@ -89,7 +117,7 @@ include 'partials/header.php';
                                     <td><?= $name ?></td>
                                     <td><?= $username ?></td>
                                     <td><a href="./edit-user.php?id=<?= $id ?>" class="btn sm">Edit</a></td>
-                                    <td><a href="./delete-category.php" class="btn sm danger">Delete</a></td>
+                                    <td><a href="<?= ROOT_URL ?>admin/delete-user-logic.php?id=<?= $id ?>" class="btn sm danger" onclick="confimation_box();">Delete</a></td>
                                     <td><?= $is_admin ?></td>
                                 </tr>
 
@@ -103,6 +131,22 @@ include 'partials/header.php';
         </main>
     </div>
 </section>
+
+<!-- Delete user -->
+<script>
+	
+	function confimation_box() {
+		if (confirm('Are you sure ?')) {
+			return true;
+		}
+		else {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+	}
+	
+	
+</script>
 
 <?php
 include '../partials/footer.php';
