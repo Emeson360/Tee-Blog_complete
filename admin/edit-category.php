@@ -18,9 +18,9 @@
 <section class="form__section">
     <div class="container form__section-container">
         <h2>Edit Category</h2>
-        <form action="" enctype="multipart/form-data">
-            <input type="text" placeholder="Title" value="<?= $title?>">
-            <textarea rows="4" placeholder="Description"><?= $description?></textarea>
+        <form action="<?= ROOT_URL ?>admin/edit-category-logic.php" method="POST">
+            <input type="text" placeholder="Title" value="<?= $title?>" name="tittle">
+            <textarea rows="4" placeholder="Description" name="description"><?= $description?></textarea>
             <button class="btn " type="submit" name="submit">Edit Category</button>
         </form>
     </div>
