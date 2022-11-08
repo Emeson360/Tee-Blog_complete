@@ -17,9 +17,21 @@
 
 <section class="form__section">
     <div class="container form__section-container">
-        <h2>Edit Category</h2>
+    <h2>Edit Category</h2>
+        <?php  if (isset($_SESSION['edit-category'])): ?>
+            <div class="alert__message error">
+                <p style="font-size: 20px;">
+                <?=
+                        $_SESSION['edit-category'];
+                        unset($_SESSION['edit-category']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
+        
         <form action="<?= ROOT_URL ?>admin/edit-category-logic.php" method="POST">
-            <input type="text" placeholder="Title" value="<?= $title?>" name="tittle">
+            <input type="hidden" value="<?= $category_id ?>" name="id">
+            <input type="text" placeholder="Title" value="<?= $title?>" name="title">
             <textarea rows="4" placeholder="Description" name="description"><?= $description?></textarea>
             <button class="btn " type="submit" name="submit">Edit Category</button>
         </form>

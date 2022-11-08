@@ -14,6 +14,26 @@ include 'partials/header.php';
                 </p>
             </div>
         <?php endif ?>
+        <?php  if (isset($_SESSION['edit-category-success'])): ?>
+            <div class="container alert__message success">
+                <p style="font-size: 20px;">
+                <?=
+                        $_SESSION['edit-category-success'];
+                        unset($_SESSION['edit-category-success']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
+        <?php  if (isset($_SESSION['delete-category-success'])): ?>
+            <div class="container alert__message success">
+                <p style="font-size: 20px;">
+                <?=
+                        $_SESSION['delete-category-success'];
+                        unset($_SESSION['delete-category-success']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
         <div class="container dashboard__container">
             <button id="show__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-right"></i></button>
             <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-left"></i></button>
@@ -74,7 +94,7 @@ include 'partials/header.php';
                                     <tr>
                                         <td><?= $title ?></td>
                                         <td><a href="<?= ROOT_URL ?>admin/edit-category.php?id=<?= $category_id ?>" class="btn sm">Edit</a></td>
-                                        <td><a href="<?= ROOT_URL ?>admin/delete-category.php" class="btn sm danger">Delete</a></td>
+                                        <td><a href="<?= ROOT_URL ?>admin/delete-category-logic.php?id=<?= $category_id ?>" class="btn sm danger" onclick="confimation_box();">Delete</a></td>
                                     </tr>
 
                                     <?php
@@ -94,6 +114,22 @@ include 'partials/header.php';
             </main>
         </div>
     </section>
+
+    <!-- Delete Category -->
+    <script>
+        
+        function confimation_box() {
+            if (confirm('Are you sure ?')) {
+                return true;
+            }
+            else {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        }
+        
+        
+    </script>
 
 <?php
 include '../partials/footer.php';
