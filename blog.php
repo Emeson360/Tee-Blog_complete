@@ -161,5 +161,5 @@ include './partials/header.php';
 <!-- ================== END OF CATEGORY BUTTONS ============= -->
 
 <?php 
-include './partials/header.php';
+include './partials/footer.php';
 ?>

@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php';
+include '../partials/header.php';
 ?>
 
 
@@ -45,7 +45,7 @@ include 'partials/header.php';
                         </a>
                     </li>
                     <li>
-                        <a href="./dashboard.php"><i class="fa fa-vcard"></i>
+                        <a href="./index.php"><i class="fa fa-vcard"></i>
                             <h5>Manage posts</h5>
                         </a>
                     </li>

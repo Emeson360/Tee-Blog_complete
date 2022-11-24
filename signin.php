@@ -1,5 +1,5 @@
 <?php
-include 'admin/config/database.php'
+include 'config/database.php'
 ?>
 
 <!DOCTYPE html>

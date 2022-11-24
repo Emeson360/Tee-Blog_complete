@@ -1,5 +1,5 @@
 <?php
-require 'constants.php';
+require __DIR__ . '/constants.php';
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');

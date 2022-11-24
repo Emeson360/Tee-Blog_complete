@@ -75,7 +75,7 @@ if (isset($_POST['signup'])) {
                         move_uploaded_file($avatar_tmp_name, $avatar_destination_path);
                     }
                     else {
-                        $_SESSION['reg'] = "File size too big. Should be less than 2mb";
+                        $_SESSION['signup'] = "File size too big. Should be less than 2mb";
                     }
                 }
                 else {

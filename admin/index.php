@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php';
+include '../partials/header.php';
 ?>
 
 
@@ -11,6 +11,16 @@ include 'partials/header.php';
                     <?=
                         $_SESSION['signin-success'];
                         unset($_SESSION['signin-success']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
+        <?php if (isset($_SESSION['add-post-success'])): ?>
+            <div class="container alert__message success">
+                <p style="font-size: 20px;">
+                    <?=
+                        $_SESSION['add-post-success'];
+                        unset($_SESSION['add-post-success']);
                     ?>
                 </p>
             </div>
@@ -59,7 +69,7 @@ include 'partials/header.php';
                 </ul>
             </aside>
             <main>
-                <h2>Manage Users</h2>
+                <h2>Manage Posts</h2>
                 <table>
                     <thead>
                         <tr>
@@ -119,6 +129,7 @@ include 'partials/header.php';
         </div>
     </section>
 
+
 <?php
-include '../partials/footer.php';
+include './partials/footer.php';
 ?>

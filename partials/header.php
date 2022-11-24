@@ -1,5 +1,11 @@
 <?php
-require './admin/config/database.php';
+require __DIR__ . '/../config/database.php';
+
+// Redirect if user is not logged in
+if(!isLoggedIn()) {
+    header('location: ' .ROOT_URL . 'signin.php');
+}
+
 ?>
 
 
@@ -50,7 +56,7 @@ require './admin/config/database.php';
                     
                         <ul>
                             <li><a href="<?php echo ROOT_URL?>admin/index.php">Dashboard</a></li>
-                            <li><a href="<?php echo ROOT_URL?>index.php?logout='1'">Logout</a></li>
+                            <li><a href="<?php echo ROOT_URL?>index.php?logout=1">Logout</a></li>
                         </ul>
                     </li>
                 <?php else :?>

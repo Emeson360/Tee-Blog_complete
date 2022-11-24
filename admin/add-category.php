@@ -1,5 +1,5 @@
 <?php
-    include './partials/header.php';
+    include '../partials/header.php';
     $title = $_SESSION['add-category-data']['title'] ?? null;
     $description = $_SESSION['add-category-data']['description'] ?? null;
 

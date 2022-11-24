@@ -1,5 +1,5 @@
 <?php
-include 'config/database.php';
+include '../config/database.php';
 
 
 if (isset($_POST['add_user'])) {
@@ -79,7 +79,7 @@ if (isset($_POST['add_user'])) {
                         move_uploaded_file($avatar_tmp_name, $avatar_destination_path);
                     }
                     else {
-                        $_SESSION['reg'] = "File size too big. Should be less than 2mb";
+                        $_SESSION['add-user'] = "File size too big. Should be less than 2mb";
                     }
                 }
                 else {

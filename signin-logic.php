@@ -1,5 +1,5 @@
 <?php
-include 'admin/config/database.php';
+include 'config/database.php';
 
 if(isset($_POST['signin'])) {
     $username_email = filter_var($_POST['username_email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);

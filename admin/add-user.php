@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php';
+include '../partials/header.php';
 
 $firstname = $_SESSION['add-user-data']['firstname'] ?? null;
 $lastname = $_SESSION['add-user-data']['lastname'] ?? null;

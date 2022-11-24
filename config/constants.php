@@ -30,3 +30,8 @@ if (isset($_GET['logout'])) {
 // 		return false;
 // 	}
 // }
+
+function dd($data) {
+	var_dump($data);
+	die;
+}

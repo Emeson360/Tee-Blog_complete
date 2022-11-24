@@ -55,7 +55,7 @@ if (!isLoggedIn()) {
                    
                     <ul>
                         <li><a href="<?php echo ROOT_URL?>admin/index.php">Dashboard</a></li>
-                        <li><a href="<?php echo ROOT_URL?>index.php?logout='1'">Logout</a></li>
+                        <li><a href="<?php echo ROOT_URL?>index.php?logout=1">Logout</a></li>
                     </ul>
                 </li>
             </ul>

@@ -1,4 +1,4 @@
-    <footer>
+<footer>
         <div class="footer__socials">
             <a href="" target="_blank"><i class="fab fa-youtube"></i></a>
             <a href="" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -95,7 +95,7 @@
             <small>copyright &copy; TeeCee Tutorials</small>
         </div>
     </footer>
-    <script src="./js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

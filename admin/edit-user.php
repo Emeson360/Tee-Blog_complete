@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php';
+include '../partials/header.php';
 
 if(isset($_GET['id'])) {
     $id = $_GET['id'];

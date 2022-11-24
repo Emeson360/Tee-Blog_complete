@@ -1,34 +1,61 @@
 <?php
-    include './partials/header.php';
+    include '../partials/header.php';
+    
+    $title = $_SESSION['add-post-data']['title'] ?? null;
+    $body = $_SESSION['add-post-data']['body'] ?? null;
+
+    unset($_SESSION['add-post-data']);
+
 ?>
 
 <section class="form__section">
     <div class="container form__section-container">
         <h2>Add Post</h2>
-        <div class="alert__message error">
-            <p>This is an error message</p>
-        </div>
-        <form action="" enctype="multipart/form-data">
-            <input type="text" placeholder="Title">
-            <select>
-                <option value="1">Travel</option>
-                <option value="1">Art</option>
-                <option value="1">Science & Technology</option>
-                <option value="1">Travel</option>
-                <option value="1">Travel</option>
-                <option value="1">Travel</option>
-            </select>
-            <textarea rows="10" placeholder="Body"></textarea>
-            <div class="form__control inline">
-                <input type="checkbox" id="is_featured" checked>
-                <label for="is_featured">Featured</label>
+        <?php  if (isset($_SESSION['add-post'])): ?>
+            <div class="alert__message error">
+                <p style="font-size: 20px;">
+                    <?=
+                        $_SESSION['add-post'];
+                        unset($_SESSION['add-post']);
+                    ?>
+                </p>
             </div>
+        <?php endif ?>
+        <form action="<?= ROOT_URL ?>admin/add-post-logic.php" method="POST" enctype="multipart/form-data">
+            <input type="text" placeholder="Title" name="title" value="<?= $title ?>">
+            <select name="category_id">
+                <?php
+                    $query = "SELECT id, title FROM categories";
+                    $result = mysqli_query($con, $query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        foreach ($result as $row) {
+                            $category_id = $row['id'];
+                            $title = $row['title'];
+                            ?>
+
+                            <option value="<?= $category_id ?>"><?= $title ?></option>
+
+                            <?php
+                        }
+                    }
+                ?>
+            </select>
+
+            <textarea rows="10" placeholder="Body" name="body"><?= $body ?></textarea>
+             
+            <?php if($_SESSION['user']['is_admin'] == 1) : ?>
+                <div class="form__control inline">
+                    <input type="checkbox" id="is_featured" value="1" name="is_featured" checked>
+                    <label for="is_featured">Featured</label>
+                </div>
+            <?php endif ?>
 
             <div class="form__control">
                 <label for="thumbnail">Add Thumbnail</label>
-                <input type="file" id="thumbnail">
+                <input type="file" id="thumbnail" name="thumbnail">
             </div>
-            <button class="btn " type="submit ">Add Post</button>
+            <button class="btn " type="submit" name="add_post">Add Post</button>
         </form>
     </div>
 </section>

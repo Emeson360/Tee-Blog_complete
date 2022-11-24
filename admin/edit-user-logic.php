@@ -1,5 +1,5 @@
 <?php
-include 'config/database.php';
+include '../config/database.php';
 
 if(isset($_POST['update_user'])) {
     $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
