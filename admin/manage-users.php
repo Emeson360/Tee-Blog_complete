@@ -95,8 +95,8 @@ include '../partials/header.php';
                 </thead>
                 <tbody>
                     <?php
-                        $current_admin_id = $_SESSION['user']['id'];
-                        $query = "SELECT * FROM users WHERE NOT id = '$current_admin_id'";
+                        $current_user_id = $_SESSION['user']['id'];
+                        $query = "SELECT * FROM users WHERE NOT id = '$current_user_id'";
                         $result = mysqli_query($con, $query);
 
                         if (mysqli_num_rows($result) > 0) {

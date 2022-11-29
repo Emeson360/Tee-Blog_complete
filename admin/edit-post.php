@@ -1,78 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    include '../partials/header.php';
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tee Blog website</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./fontawesome-free-6.1.1-web/css/all.css">
-    <!-- GOOGLE FONT (MONTSERRAT) -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
 
-<body>
-    <nav>
-        <div class="container nav__container">
-            <a href="index.html" class="nav__logo">TEE-BLOG</a>
-            <ul class="nav__items">
-                <li>
-                    <a href="blog.html">Blog</a>
-                </li>
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-                <li>
-                    <a href="services.html">Services</a>
-                </li>
-                <li>
-                    <a href="contact.html">Contact</a>
-                </li>
-                <!-- <li>
-                    <a href="signin.html">Signin</a>
-                </li> -->
-                <li class="nav__profile">
-                    <div class="avatar">
-                        <img src="./images/avatar.png">
-                    </div>
-                    <ul>
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="logout.html">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <button id="open__nav-btn"><i class="fa fa-bars"></i></button>
-            <button id="close__nav-btn"><i class="fa fa-times"></i></button>
+    if(isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $query = "SELECT * FROM posts WHERE id = '$id'";
+        $result = mysqli_query($con, $query);
+    
+        foreach($result as $row) {
+            $title = $row['title'];
+            $category = $row['category'];
+            $category_id = $row['category_id'];
+            $body = $row['body'];
+            $is_featured = $row['is_featured'];
+            $prev_thumbnail = $row['thumbnail'];
+        }
+    }
+    else {
+        // redirect to dashboard
+        header('location: ' . ROOT_URL . 'admin/index.php');
+    }
 
-        </div>
-    </nav>
-    <!-- ================== END OF NAV ============= -->
+?>
+
+
 
     <section class="form__section">
         <div class="container form__section-container">
-            <h2>Edit Post</h2>
-            <form action="" enctype="multipart/form-data">
-                <input type="text" placeholder="Title">
-                <select>
-                    <option value="1">Travel</option>
-                    <option value="1">Art</option>
-                    <option value="1">Science & Technology</option>
-                    <option value="1">Travel</option>
-                    <option value="1">Travel</option>
-                    <option value="1">Travel</option>
-                </select>
-                <textarea rows="10" placeholder="Body"></textarea>
-                <div class="form__control inline">
-                    <input type="checkbox" id="is_featured" checked>
-                    <label for="is_featured">Featured</label>
+
+            <?php if (isset($_SESSION['edit-post'])): ?>
+                <div class="alert__message error">
+                    <p style="font-size: 20px;">
+                        <?=
+                            $_SESSION['edit-post'];
+                            unset($_SESSION['edit-post']);
+                        ?>
+                    </p>
                 </div>
+            <?php endif ?>
+
+            <h2>Edit Post</h2>
+            <form action="<?= ROOT_URL ?>admin/edit-post-logic.php" enctype="multipart/form-data" method="POST">
+                <input type="hidden" name="id" value="<?= $id ?>">
+                <input type="text" placeholder="Title" name="title" value="<?= $title  ?>">
+                <select name="category_id">
+                    <?php
+                        $query = "SELECT * FROM categories";
+                        $result = mysqli_query($con, $query);
+                        foreach ($result as $row) {
+                            $title_cat = $row['title'];
+                            if($title_cat == $category) {
+                                ?>
+                                    <option value="<?= $category_id  ?>" selected><?= $title_cat  ?></option>
+                                <?php
+                            }
+                            else{
+
+                            ?>
+                                <option value="<?= $category_id  ?>"><?= $title_cat  ?></option>
+
+                            <?php
+                            
+                            }
+                        }
+
+                    ?>
+                </select>
+
+                <textarea rows="10" name="body" placeholder="Body"><?= $body  ?></textarea>
+
+                <?php if($_SESSION['user']['is_admin'] == 1) : ?>
+                    <div class="form__control inline">
+                        <?php 
+                            if($is_featured == 1) {
+                                ?>
+                                    <input type="checkbox" id="is_featured" value="1" name="is_featured" checked>
+                                <?php
+                            }
+                            else {
+                                ?>
+                                    <input type="checkbox" id="is_featured" value="0" name="is_featured">
+                                <?php
+                            }
+                        ?>
+                        <label for="is_featured">Featured</label>
+                    </div>
+                <?php endif ?>
 
                 <div class="form__control">
+                    <input type="hidden" name="prev_thumbnail" value="<?= $prev_thumbnail ?>">
                     <label for="thumbnail">Change Thumbnail</label>
-                    <input type="file" id="thumbnail">
+                    <input type="file" id="thumbnail" name="thumbnail">
                 </div>
-                <button class="btn " type="submit ">Update Post</button>
+                <button class="btn" name="update_post" type="submit ">Update Post</button>
             </form>
         </div>
     </section>

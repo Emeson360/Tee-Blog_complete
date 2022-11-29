@@ -25,6 +25,16 @@ include '../partials/header.php';
                 </p>
             </div>
         <?php endif ?>
+        <?php if (isset($_SESSION['edit-post-success'])): ?>
+            <div class="container alert__message success">
+                <p style="font-size: 20px;">
+                    <?=
+                        $_SESSION['edit-post-success'];
+                        unset($_SESSION['edit-post-success']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
         <div class="container dashboard__container">
             <button id="show__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-right"></i></button>
             <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-left"></i></button>
@@ -71,58 +81,54 @@ include '../partials/header.php';
             <main>
                 <h2>Manage Posts</h2>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>Wild Life</td>
-                            <td><a href="<?= ROOT_URL ?>admin/edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href=".<?= ROOT_URL ?>admindelete-category.php" class="btn sm danger">Delete</a></td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>Wild Life</td>
-                            <td><a href="<?= ROOT_URL ?>admin/edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href="<?= ROOT_URL ?>admin/delete-category.php" class="btn sm danger">Delete</a></td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>Wild Life</td>
-                            <td><a href="<?= ROOT_URL ?>admin/edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href="<?= ROOT_URL ?>admin/delete-category.php" class="btn sm danger">Delete</a></td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>Wild Life</td>
-                            <td><a href="<?= ROOT_URL ?>admin/edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href="<?= ROOT_URL ?>admin/delete-category.php" class="btn sm danger">Delete</a></td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>Wild Life</td>
-                            <td><a href="<?= ROOT_URL ?>admin/edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href="<?= ROOT_URL ?>admin/delete-category.php" class="btn sm danger">Delete</a></td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                            <td>Wild Life</td>
-                            <td><a href="<?= ROOT_URL ?>admin/edit-category.php" class="btn sm">Edit</a></td>
-                            <td><a href="<?= ROOT_URL ?>admin/delete-category.php" class="btn sm danger">Delete</a></td>
-                            
-                        </tr>
-                    
+                    <?php
+                        $current_user_id = $_SESSION['user']['id'];
+                        $query = "SELECT * FROM posts WHERE author_id = '$current_user_id'";
+                        $result = mysqli_query($con, $query);
+
+                        if(mysqli_num_rows($result) > 0) {
+                            ?>
+
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                       
+                            <?php
+                                foreach ($result as $row) {
+                                    $id = $row['id'];
+                                    $title = $row['title'];
+                                    $category = $row['category'];
+                                    ?>
+
+                                        <tr>
+                                            <td><?= $title ?></td>
+                                            <td><?= $category ?></td>
+                                            <td><a href="<?= ROOT_URL ?>admin/edit-post.php?id=<?= $id ?>" class="btn sm">Edit</a></td>
+                                            <td><a href="<?= ROOT_URL ?>admin/delete-post-logic.php?id=<?= $id ?>" class="btn sm danger">Delete</a></td>
+                                            
+                                        </tr>
+
+                                    <?php
+                                }
+
+                        }
+                        else {
+                            ?>
+                                <div class="alert__message error">
+                                    No Post found
+                                </div>
+
+                            <?php
+                        }
+                                 
+                        ?>
+                        
                     </tbody>
                 </table>
             </main>

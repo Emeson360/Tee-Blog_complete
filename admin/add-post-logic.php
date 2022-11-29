@@ -12,7 +12,6 @@ if (isset($_POST['add_post'])) {
     }
     else {
         $is_featured = 0;
-        dd($is_featured);
     }
 
 
