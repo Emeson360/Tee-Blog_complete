@@ -19,6 +19,17 @@ if(isset($_GET['id'])) {
             unlink($avatar_path);
         }
 
+        $query_post = mysqli_query($con, "SELECT thumbnail FROM posts WHERE author_id = $id");
+        foreach ($query_post as $row) {
+            $thumbnail_name = $row['thumbnail'];
+            $thumbnail_path = '../images/' . $thumbnail_name;
+
+            // delete the image if it exist
+            if ($thumbnail_path) {
+                unlink($thumbnail_path);
+            }
+        }
+
         $query = "DELETE FROM users WHERE id = '$id'";
         $result = mysqli_query($con, $query);
 

@@ -1,5 +1,5 @@
 <?php
-include './admin/config/database.php';
+include __DIR__ .'/./config/database.php';
 
 $firstname = $_SESSION['signup-data']['firstname'] ?? null;
 $lastname = $_SESSION['signup-data']['lastname'] ?? null;

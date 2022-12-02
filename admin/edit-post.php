@@ -9,11 +9,7 @@
     
         foreach($result as $row) {
             $title = $row['title'];
-            $category = $row['category'];
-            $category_id = $row['category_id'];
-            $body = $row['body'];
-            $is_featured = $row['is_featured'];
-            $prev_thumbnail = $row['thumbnail'];
+           
         }
     }
     else {
@@ -45,23 +41,36 @@
                 <input type="text" placeholder="Title" name="title" value="<?= $title  ?>">
                 <select name="category_id">
                     <?php
+
+                        $query = "SELECT * FROM posts WHERE id = '$id'";
+                        $result = mysqli_query($con, $query);
+
+                        foreach($result as $row) {
+                            $title = $row['title'];
+                            $category = $row['category'];
+                            $category_id = $row['category_id'];
+                            $body = $row['body'];
+                            $is_featured = $row['is_featured'];
+                            $prev_thumbnail = $row['thumbnail'];
+                        }
+
                         $query = "SELECT * FROM categories";
                         $result = mysqli_query($con, $query);
-                        foreach ($result as $row) {
-                            $title_cat = $row['title'];
-                            if($title_cat == $category) {
+                        foreach ($result as $value) {
+                            $title_cat = $value['title'];
+                            $id_cat = $value['id'];
+                            
+                            if($category == $title_cat) {
                                 ?>
-                                    <option value="<?= $category_id  ?>" selected><?= $title_cat  ?></option>
+                                    <option value="<?= $id_cat  ?>" selected><?= $title_cat  ?></option>
                                 <?php
                             }
                             else{
-
-                            ?>
-                                <option value="<?= $category_id  ?>"><?= $title_cat  ?></option>
-
-                            <?php
-                            
+                                ?>
+                                    <option value="<?= $id_cat  ?>" ><?= $title_cat  ?></option>
+                                <?php
                             }
+                            
                         }
 
                     ?>

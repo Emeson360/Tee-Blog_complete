@@ -3,6 +3,7 @@
     $title = $_SESSION['add-category-data']['title'] ?? null;
     $description = $_SESSION['add-category-data']['description'] ?? null;
 
+    unset($_SESSION['add-category-data']);
 ?>
 
 <section class="form__section">

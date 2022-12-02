@@ -83,7 +83,7 @@ include '../partials/header.php';
                 <table>
                     <?php
                         $current_user_id = $_SESSION['user']['id'];
-                        $query = "SELECT * FROM posts WHERE author_id = '$current_user_id'";
+                        $query = "SELECT * FROM posts WHERE author_id = '$current_user_id' ORDER BY id DESC";
                         $result = mysqli_query($con, $query);
 
                         if(mysqli_num_rows($result) > 0) {
@@ -110,7 +110,7 @@ include '../partials/header.php';
                                             <td><?= $title ?></td>
                                             <td><?= $category ?></td>
                                             <td><a href="<?= ROOT_URL ?>admin/edit-post.php?id=<?= $id ?>" class="btn sm">Edit</a></td>
-                                            <td><a href="<?= ROOT_URL ?>admin/delete-post-logic.php?id=<?= $id ?>" class="btn sm danger">Delete</a></td>
+                                            <td><a href="<?= ROOT_URL ?>admin/delete-post-logic.php?id=<?= $id ?>" class="btn sm danger"  onclick="confimation_box();">Delete</a></td>
                                             
                                         </tr>
 
@@ -135,6 +135,21 @@ include '../partials/header.php';
         </div>
     </section>
 
+    <!-- Delete Post -->
+    <script>
+
+        function confimation_box() {
+            if (confirm('Are you sure ?')) {
+                return true;
+            }
+            else {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        }
+
+
+    </script>
 
 <?php
 include './partials/footer.php';

@@ -34,6 +34,16 @@ include '../partials/header.php';
                 </p>
             </div>
         <?php endif ?>
+        <?php  if (isset($_SESSION['delete'])): ?>
+            <div class="container alert__message error">
+                <p style="font-size: 20px;">
+                <?=
+                        $_SESSION['delete'];
+                        unset($_SESSION['delete']);
+                    ?>
+                </p>
+            </div>
+        <?php endif ?>
         <div class="container dashboard__container">
             <button id="show__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-right"></i></button>
             <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="fa fa-angle-left"></i></button>
