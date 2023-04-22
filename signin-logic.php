@@ -47,3 +47,5 @@ if(isset($_POST['signin'])) {
 else {
     header('location: ' . ROOT_URL . 'signin.php');
 }
+
+?>

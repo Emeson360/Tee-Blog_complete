@@ -144,8 +144,6 @@ include '../partials/header.php';
 			event.preventDefault();
 		}
 	}
-	
-	
 </script>
 
 <?php

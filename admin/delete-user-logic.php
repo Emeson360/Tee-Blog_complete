@@ -19,6 +19,7 @@ if(isset($_GET['id'])) {
             unlink($avatar_path);
         }
 
+        // delete post
         $query_post = mysqli_query($con, "SELECT thumbnail FROM posts WHERE author_id = $id");
         foreach ($query_post as $row) {
             $thumbnail_name = $row['thumbnail'];

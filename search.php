@@ -66,7 +66,7 @@ else {
         </div>
     </div>
 <?php else: ?>
-    <div class="alert__message error lg section__extra-margin">
+    <div class="section__extra-margin alert__message error e">
         <p>No post found for this search</p>
     </div>
 <?php endif ?>

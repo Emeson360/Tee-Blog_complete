@@ -24,3 +24,5 @@ else {
     // redirect to manage categories page
     header('location: ' . ROOT_URL . 'admin/manage-categories.php');
 }
+
+?>
